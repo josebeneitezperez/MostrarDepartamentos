@@ -1,2 +1,10 @@
-main\java\controlador\HibernateUtil.class
+main\java\clasesVO\Departamento.class
 main\java\servlet\EjercicioServlet.class
+main\java\servlet\MostrarDatos.class
+main\java\clasesVO\Empleado.class
+main\java\clasesDAO\DepartamentoDAO.class
+main\java\controlador\ControladorEmpleado.class
+main\java\clasesDAO\EmpleadoDAO.class
+main\java\servlet\MostrarEmpleados.class
+main\java\controlador\ControladorDepartamento.class
+main\java\controlador\HibernateUtil.class

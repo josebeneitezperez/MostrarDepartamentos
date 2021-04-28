@@ -1,6 +1,6 @@
 package main.java.clasesDAO;
 
-import java.util.List; 
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import main.java.clasesVO.Departamento;
 import main.java.servlet.EjercicioServlet;
+import main.java.servlet.MostrarDatos;
 
 public class DepartamentoDAO {
 
@@ -17,7 +18,7 @@ public class DepartamentoDAO {
 	private static Session sesion = null;
 
 	public static List<Departamento> findAll() {
-		sesion = EjercicioServlet.sessionFactory.openSession();
+		sesion = MostrarDatos.abrirSesion();
 		Transaction tx = sesion.beginTransaction();
 
 		String query = "from Departamento order by codigo";
@@ -35,15 +36,14 @@ public class DepartamentoDAO {
 				logger.error("No se pudo cerrar la conexion con la BD, error: ", e);
 			}
 		}
-		
-		
+
 		return lista;
 	}
 
 	public static void insert(Departamento departamento) {
 		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
-		
+
 		try {
 			sesion.save(departamento);
 			tx.commit();
@@ -62,7 +62,7 @@ public class DepartamentoDAO {
 	public static void remove(Departamento departamento) {
 		Session sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
-		
+
 		try {
 			sesion.remove(departamento);
 			tx.commit();
@@ -100,7 +100,7 @@ public class DepartamentoDAO {
 		Session sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		Departamento unDepartamento = null;
-		
+
 		try {
 			unDepartamento = sesion.get(Departamento.class, id);
 			tx.commit();
