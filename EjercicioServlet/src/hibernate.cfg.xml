@@ -12,10 +12,9 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   <property name="hibernate.format_sql">false</property>
   
-  <!-- Mapping
+  
   <mapping class="main.java.clasesVO.Empleado"/>
   <mapping class="main.java.clasesVO.Departamento"/>
   
-  -->
  </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,6 @@
-package clasesDAO;
+package main.java.clasesDAO;
 
-import java.text.SimpleDateFormat; 
+import java.text.SimpleDateFormat;  
 import java.util.Calendar;
 import java.util.List;  
 
@@ -17,12 +17,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import main.java.clasesVO.Empleado;
+import main.java.servlet.EjercicioServlet;
+
 import javax.persistence.EntityManager;
 
-
-
-import Vista.Principal;
-import clasesVO.Empleado;
 
 public class EmpleadoDAO {
 
@@ -30,7 +29,7 @@ public class EmpleadoDAO {
 	private static Session sesion = null;
 
 	public static List<Empleado> findAll() {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 
 		List<Empleado> lista = null;
@@ -52,7 +51,7 @@ public class EmpleadoDAO {
 
 	public static void insert(Empleado empleado) {
 
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		try {
@@ -70,7 +69,7 @@ public class EmpleadoDAO {
 	}
 
 	public static void remove(Empleado empleado) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		try {
@@ -82,7 +81,7 @@ public class EmpleadoDAO {
 	}
 
 	public static void update(Empleado empleado) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		try {
@@ -100,7 +99,7 @@ public class EmpleadoDAO {
 	}
 
 	public static Empleado get(int id) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		Empleado unEmpleado = null;
@@ -121,7 +120,7 @@ public class EmpleadoDAO {
 	
 	//Consulta HQL (lenguaje de Hibernate)
 	public static List<Empleado> getEmpleados(int idDepartamento) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		String hqlQuery = "from Empleado e where e.codDepartamento = :idDepartamento";	//OJO, "e.codDepartamento" es el nombre en Empleado.class, no en la BD
@@ -144,7 +143,7 @@ public class EmpleadoDAO {
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static List<Empleado> getEmpleadosPorEdad(int edad) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		List<Empleado> listaEmpleados = null;

@@ -1,6 +1,6 @@
-package clasesDAO;
+package main.java.clasesDAO;
 
-import java.util.List;
+import java.util.List; 
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -8,9 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import Vista.Principal;
-import clasesVO.Departamento;
-import clasesVO.Empleado;
+import main.java.clasesVO.Departamento;
+import main.java.servlet.EjercicioServlet;
 
 public class DepartamentoDAO {
 
@@ -18,7 +17,7 @@ public class DepartamentoDAO {
 	private static Session sesion = null;
 
 	public static List<Departamento> findAll() {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 
 		String query = "from Departamento order by codigo";
@@ -33,14 +32,16 @@ public class DepartamentoDAO {
 			try {
 				sesion.close();
 			} catch (HibernateException e) {
-				logger.error("No se pudo cerrar la conexión con la BD, error: ", e);
+				logger.error("No se pudo cerrar la conexion con la BD, error: ", e);
 			}
 		}
+		
+		
 		return lista;
 	}
 
 	public static void insert(Departamento departamento) {
-		sesion = Principal.sessionFactory.openSession();
+		sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		try {
@@ -59,7 +60,7 @@ public class DepartamentoDAO {
 	}
 
 	public static void remove(Departamento departamento) {
-		Session sesion = Principal.sessionFactory.openSession();
+		Session sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		
 		try {
@@ -78,7 +79,7 @@ public class DepartamentoDAO {
 	}
 
 	public static void update(Departamento departamento) {
-		Session sesion = Principal.sessionFactory.openSession();
+		Session sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 
 		try {
@@ -96,7 +97,7 @@ public class DepartamentoDAO {
 	}
 
 	public static Departamento get(int id) {
-		Session sesion = Principal.sessionFactory.openSession();
+		Session sesion = EjercicioServlet.sessionFactory.openSession();
 		Transaction tx = sesion.beginTransaction();
 		Departamento unDepartamento = null;
 		
