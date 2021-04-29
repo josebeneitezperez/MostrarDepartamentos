@@ -40,7 +40,7 @@ public class MostrarDatos extends HttpServlet {
 	public MostrarDatos() {
 		super();
 		PropertyConfigurator.configure(ruta);
-		logger.info("AplicaciÛn iniciada");
+		logger.info("Aplicaci√≥n iniciada");
 	}
 
 	/**
@@ -62,19 +62,27 @@ public class MostrarDatos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String parametro = request.getParameter("table");//table es el nombre del parametro, y el valor (lo de de depues del "=" en la url)
-		if (parametro.equalsIgnoreCase("empleados")) {	//parametro es table
-			
-			logger.info("Redirigiendo a "+parametro);
-			request.getRequestDispatcher("MostrarEmpleados").forward(request, response);
-		} else if(parametro.equalsIgnoreCase("departamentos")) {
-			
-			logger.info("Redirigiendo a "+parametro);
-			request.getRequestDispatcher("EjercicioServlet").forward(request, response);
+
+		PrintWriter out;
+		String parametro = null;
+		if ((parametro = request.getParameter("table")) != null) { 	// table es el nombre del parametro, 
+																	//y el valor es lo de despues del "=" en la url)
+			if (parametro.equalsIgnoreCase("empleados")) {
+
+				logger.info("Redirigiendo a " + parametro);
+				request.getRequestDispatcher("MostrarEmpleados").forward(request, response);
+			} else if (parametro.equalsIgnoreCase("departamentos")) {
+
+				logger.info("Redirigiendo a " + parametro);
+				request.getRequestDispatcher("EjercicioServlet").forward(request, response);
+			} else {
+				out = response.getWriter();
+				printResponse(out);
+				out.close();
+			}
 		} else {
-			
-			PrintWriter out = response.getWriter();
+			logger.info("Se entr√≥ en http://localhost:8080/EjercicioServlet/MostrarDatos sin un parametro \"table\"");
+			out = response.getWriter();
 			printResponse(out);
 			out.close();
 		}
@@ -93,28 +101,24 @@ public class MostrarDatos extends HttpServlet {
 	private PrintWriter printResponse(PrintWriter out) {
 
 		PrintWriter res = out;
-
-		List<Departamento> listaDepartamentos = null;
-		listaDepartamentos = ControladorDepartamento.buscarTodos();
-		logger.info("ListaDepartamentos leÌda de la BD");
-
+		
 		res.println("<html>");
 		res.println("<title>Mostrar datos :)</title>");
 		res.println("<body>");
 		// res.println("<div>Hola Mundo (desde " + this.getClass().getSimpleName()
 		// +")</div>");
-		// parameterMap.keySet().forEach(x -> res.println("<div>Par·metro " + x + " = "
+		// parameterMap.keySet().forEach(x -> res.println("<div>Par√°metro " + x + " = "
 		// + String.join(",", parameterMap.get(x)) +"</div>"));
 
 		res.println("Bienvenido a Mostrar datos");
 		res.println("<br>");
 		res.println("Para ir a la tabla empleados inserte: ");
 		res.println("<br>");
-		res.println("http://localhost:8080/EjercicioServlet/MostrarDatos?table=empleado");
+		res.println("http://localhost:8080/EjercicioServlet/MostrarDatos?table=empleados");
 		res.println("<br>");
 		res.println("Para ir a la tabla departamentos inserte: ");
 		res.println("<br>");
-		res.println("http://localhost:8080/EjercicioServlet/MostrarDatos?table=departamento");
+		res.println("http://localhost:8080/EjercicioServlet/MostrarDatos?table=departamentos");
 		res.println("</body>");
 		res.println("</html>");
 
